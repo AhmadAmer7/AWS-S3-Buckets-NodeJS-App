@@ -20,25 +20,25 @@
           width: fit-content;
           border: 1px solid black;
           border-radius: 5px;
-          margin-left: 60px;
+          margin-left: 650px;
         }
     </style>
 </head>
 <body>
     <h1>Upload Image</h1>
-    <form id="form">
-        <input type="file" id="imagefile" accept="image/*">
+    <form id="upload-form">
+        <input type="file" id="image-file" accept="image/*">
         <button type="submit">Upload</button>
     </form>
     <div id="message"></div>
     <h2>Uploaded Images</h2>
-    <div id="images-uploaded"></div>
+    <div id="uploaded-images"></div>
 
     <script>
-        const form = document.getElementById('form');
-        const imageFile = document.getElementById('imagefile');
+        const form = document.getElementById('upload-form');
+        const imageFile = document.getElementById('image-file');
         const message = document.getElementById('message');
-        const uploadedImages = document.getElementById('images-uploaded');
+        const uploadedImages = document.getElementById('uploaded-images');
 
         function showMessage(text) {
             message.innerText = text;
@@ -51,14 +51,14 @@
         .then(data => {
             uploadedImages.innerHTML = '';
             data.files.forEach(file => {
-                const imgUrl = `/download/${file.substring(8)}`;
+                const imgUrl = `/download/${file.substring(7)}`;
 
                 const img = document.createElement('img');
                 img.src = imgUrl;
 
                 const downloadLink = document.createElement('a');
                 downloadLink.href = imgUrl;
-                downloadLink.download = file.substring(8);
+                downloadLink.download = file.substring(7);
                 downloadLink.appendChild(img);
 
                 uploadedImages.appendChild(downloadLink);
@@ -82,11 +82,11 @@
                 body: formData
             })
             .then(() => {
-                showMessage('Image is uploaded .');
+                showMessage('Image uploaded successfully.');
                 displayImages();
             })
             .catch(() => {
-                showMessage('Error while uploading');
+                showMessage('Error uploading image.');
             });
         });
     </script>
